@@ -5,30 +5,15 @@ import requests
 import urllib
 
 
-def search_place(request):
-    if request.method == 'POST':
-        form = SearcherForm(request.POST)
-        if form.is_valid():
-            search = form.save()
-            search.save()
-            form = SearcherForm()
-            searches = Searcher.objects.all()
-            return render(request, 'client/search_place.html', context={'form': form,
-                                                                        'searches': searches})
-    else:
+def search(request):
+    form = SearcherForm(request.GET)
+    if form.is_valid():
+        location = form.instance.location
+        food = form.instance.food
+        search = form.save()
+        search.save()
         form = SearcherForm()
-        searches = Searcher.objects.all()
-        return render(request, 'client/search_place.html', context={'form': form,
-                                                                    'searches': searches})
-
-def mahmut(request):
-    location = request.GET.get("location")
-    food = request.GET.get("food")
-    if location == None and food == None:
-        venue_info = []
-        return render(request, "client/mahmut.html", context={"venue_info": venue_info, })
-
-    else:
+        previous_searches = Searcher.objects.order_by('-id')[:5]
         parameters = {
             "near": location,
             "query": food,
@@ -38,10 +23,8 @@ def mahmut(request):
         }
         url_params = urllib.parse.urlencode(parameters)
         api_url = "https://api.foursquare.com/v2/venues/search?" + url_params
-        print(api_url)
-        response = requests.get(api_url) # 500 verirse ne oolur cevap vermezse ne olur
+        response = requests.get(api_url)# 500 verirse ne oolur cevap vermezse ne olur
         response = response.json()
-        print(response)
         venues = response["response"]["venues"]
         venue_info = []
 
@@ -51,7 +34,15 @@ def mahmut(request):
             venue_dict["phone"] = venue["contact"].get("formattedPhone", "---")
             venue_dict["usersCount"] = venue["stats"].get("usersCount", "---")
             venue_info.append(venue_dict)
-        return render(request, "client/mahmut.html", context={"venue_info": venue_info, })
+
+    else:
+        form = SearcherForm()
+        previous_searches = Searcher.objects.order_by('-id')[:5]
+        venue_info = []
+    return render(request, "client/search.html", context={"venue_info": venue_info,
+                                                          "form": form,
+                                                          "previous_searches": previous_searches, })
+
 
 
 
