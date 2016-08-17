@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>The Ultimate Foursquare Client</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/client.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+    </head>
+
+        <div class="page-header">
+        <h1><a>The Ultimate Foursquare Client</a></h1>
+        </div>
+
+        <div id="previous">
+            <h3>Previous Searches</h3>
+            {% for search in searches %}
+        <div class="post">
+
+            <span> - {{search.food_name}} in {{search.location_name}}</span>
+        </div>
+            {% endfor %}
+
+        </div>
+
+    </body>
+</html>

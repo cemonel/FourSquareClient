@@ -1,0 +1,16 @@
+<form method="GET">
+    Location Name: <br>
+  <input type="text" name="location"><br>
+  Food Name:<br>
+  <input type="text" name="food">
+  <input type="submit" value="Submit">
+
+
+</form>
+<div>
+    <h2>Results</h2>
+    {% for info in venue_info %}
+        <h4>{{info}} </h4>
+    {% endfor %}
+
+</div>
