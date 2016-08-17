@@ -1,5 +1,6 @@
 dj-database-url==0.4.1
-Django==1.8
+Django==1.9
 gunicorn==19.6.0
 requests==2.11.0
-whitenoise==3.2
+whitenoise==3.2.1
+psycopg2==2.5.4

@@ -34,7 +34,6 @@ def search(request):
             venue_dict["phone"] = venue["contact"].get("formattedPhone", "---")
             venue_dict["usersCount"] = venue["stats"].get("usersCount", "---")
             venue_info.append(venue_dict)
-
     else:
         form = SearcherForm()
         previous_searches = Searcher.objects.order_by('-id')[:5]
