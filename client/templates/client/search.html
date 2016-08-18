@@ -19,7 +19,7 @@
         <h3>Previous Searches</h3>
         {% for search in previous_searches %}
         <div class="get">
-            <a href=""> - {{search.food}} in {{search.location}}</a>
+            <a href="?location={{search.location}}&food={{search.food}}" > - {{search.food}} in {{search.location}}</a>
         </div>
         {% endfor %}
 
