@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Venue Detail</title>
+</head>
+<body>
+    <div id="tips">
+        {% for tip in tips_info %}
+        <div>
+            <img src={{tip.user_photo}} alt="User Photo" height="40" width="40" />
+            <b>{{tip.user_name}} {{tip.user_last_name}}</b>
+            <a>{{tip.tip_text}}</a>
+        {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

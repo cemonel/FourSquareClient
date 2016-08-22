@@ -30,6 +30,7 @@ def search(request):
 
         for venue in venues:
             venue_dict = {}
+            venue_dict["venue_id"] = venue.get("id", "---")
             venue_dict["name"] = venue.get("name", "---")
             venue_dict["phone"] = venue["contact"].get("formattedPhone", "---")
             venue_dict["usersCount"] = venue["stats"].get("usersCount", "---")
@@ -41,9 +42,36 @@ def search(request):
         venue_info = []
     return render(request, "client/search.html", context={"venue_info": venue_info,
                                                           "form": form,
-                                                          "previous_searches": previous_searches, })
+                                                          "previous_searches": previous_searches,
+                                                          })
 
 
+def venue_detail(request, venue_id):
+    parameters = {"sort": "recent",
+                  "oauth_token": "0SEIPISC50KL3LM5EPQ1FABGRKB2MCODLQ4OAHDUJN3Y0L5D",
+                  "v": "20160821",
+                  "limit": "10",
+                  }
+    api_url = urllib.parse.urlencode(parameters)
+    api_url = "https://api.foursquare.com/v2/venues/%s/tips?" % venue_id + api_url
+    response = requests.get(api_url)
+    response = response.json()
+    tips = response["response"]["tips"]["items"]
+    tips_info = []
+
+    for tip in tips:
+        tip_dict = {}
+        user_photo = tip["user"]["photo"].get("suffix", "---")
+        user_photo = "https://irs3.4sqi.net/img/user/" + "200x200" + user_photo
+        tip_dict["user_photo"] = user_photo
+        tip_dict["tip_text"] = tip.get("text", "---")
+        tip_dict["user_name"] = tip["user"].get("firstName", "---")
+        tip_dict["user_last_name"] = tip["user"].get("lastName", "")
+        tips_info.append(tip_dict)
+
+    return render(request, "client/venue_detail.html", context={"venue_id": venue_id,
+                                                                "tips_info": tips_info,
+                                                                })
 
 
 

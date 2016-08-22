@@ -33,7 +33,7 @@
       </tr>
         {% for info in venue_info %}
             <tr>
-                <td>{{info.name}}</td>
+                <td ><a href="/detail/{{info.venue_id}}/">{{info.name}}</a></td>
                 <td>{{info.phone}}</td>
                 <td>{{info.usersCount}}</td>
             </tr>
