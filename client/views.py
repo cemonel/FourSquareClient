@@ -17,7 +17,7 @@ def search(request):
         parameters = {
             "near": location,
             "query": food,
-            "limit": "10",
+            "limit": "20",
             "oauth_token": "0SEIPISC50KL3LM5EPQ1FABGRKB2MCODLQ4OAHDUJN3Y0L5D",
             "v": "20160816"
         }
@@ -30,6 +30,9 @@ def search(request):
 
         for venue in venues:
             venue_dict = {}
+            food_icon = venue["categories"][0]["icon"].get("prefix", "default")
+            food_icon += "bg_32.png"
+            venue_dict["food_icon"] = food_icon
             venue_dict["venue_id"] = venue.get("id", "---")
             venue_dict["name"] = venue.get("name", "---")
             venue_dict["phone"] = venue["contact"].get("formattedPhone", "---")

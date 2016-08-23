@@ -1,44 +1,46 @@
-{% load staticfiles %}
-<html>
-    <head>
-            <title>The Ultimate Foursquare Client</title>
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-            <link rel="stylesheet" href="{% static 'css/client.css' %}">
-            <link href='https://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
-        </head>
-    <div class="page-header">
-        <h1><a>The Ultimate Foursquare Client</a></h1>
-    </div>
-    <form id="searcher-form" method="GET" class="searcher-form">
-        {% csrf_token %}
-        {{ form}}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+<head>
+    <title>Ultimate Foursquare Search</title>
+</head>
+    <div class="container">
+        <form id="searcher-form" method="GET" class="searcher-form">
+            {% csrf_token %}
+            {{ form}}
+            <button type="submit" class="save btn btn-default">Search</button>
+        </form>
         <div id="previous">
-        <h3>Previous Searches</h3>
-        {% for search in previous_searches %}
-        <div class="get">
-            <a href="?location={{search.location}}&food={{search.food}}" > - {{search.food}} in {{search.location}}</a>
+            <h5><b>Previous Searches</b></h5>
+            {% for search in previous_searches %}
+                <div class="get">
+                     <a href="?location={{search.location}}&food={{search.food}}" > - {{search.food}} in {{search.location}}</a>
+                 </div>
+            {% endfor %}
         </div>
-        {% endfor %}
 
+
+
+        <div id="results">
+            <h5><b>Results</b></h5>
+            <table class="highlight">
+              <tr>
+                <th></th>
+                <th>Venue</th>
+                <th>Contact</th>
+                <th>Total Check-in</th>
+              </tr>
+                {% for info in venue_info %}
+                    <tr>
+                        <td><img src={{info.food_icon}} alt="Food Icon" height="32" width="32" /></td>
+                        <td ><a href="/detail/{{info.venue_id}}/">{{info.name}}</a></td>
+                        <td>{{info.phone}}</td>
+                        <td>{{info.usersCount}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-    <h2 id="results">Results</h2>
-    <table id="results_table">
-      <tr>
-        <th>Venue</th>
-        <th>Contact</th>
-        <th>Check-in Number</th>
-      </tr>
-        {% for info in venue_info %}
-            <tr>
-                <td ><a href="/detail/{{info.venue_id}}/">{{info.name}}</a></td>
-                <td>{{info.phone}}</td>
-                <td>{{info.usersCount}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+{% endblock content %}
 
-
-</html>

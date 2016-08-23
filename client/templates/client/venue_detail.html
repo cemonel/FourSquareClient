@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Venue Detail</title>
-</head>
-<body>
-    <div id="tips">
-        {% for tip in tips_info %}
-        <div>
-            <img src={{tip.user_photo}} alt="User Photo" height="40" width="40" />
-            <b>{{tip.user_name}} {{tip.user_last_name}}</b>
-            <a>{{tip.tip_text}}</a>
-        {% endfor %}
-        </div>
-    </div>
+{% extends 'client/base.html' %}
 
+{% block content %}
+<head>
+    <title>Venue Detail</title>
+
+</head>
+<div class="container">
+<body>
+  <h4 class="header">Tips</h4>
+  {% for tip in tips_info %}
+  <div class="col s6 offset-s6">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src={{tip.user_photo}} height="100" width="100"/>
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p><b>{{tip.user_name}} {{tip.user_last_name}}</b></p>
+          <p>{{tip.tip_text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </body>
-</html>
+</div>
+{% endblock content %}

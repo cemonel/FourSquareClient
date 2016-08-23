@@ -6,9 +6,8 @@
 
 .page-header h1 ,.page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
-    font-size: 40pt;
+    font-size: 20pt;
     text-decoration: none;
-    text-align: center;
 }
 
 h1 a {
@@ -18,14 +17,13 @@ h1 a {
 #previous{
     position:absolute;
 	right:200px;
-	top:130px;
+	top:380px;
 }
 
 #search-form{
     display:block;
     margin-left: auto;
     margin-right: auto;
-	text-align: center;
 }
 
 label[for=id_food_name]{
@@ -39,7 +37,7 @@ table {
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border: 0px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
@@ -49,15 +47,31 @@ tr:nth-child(even) {
 }
 #results{
     position:absolute;
-    top:270px;
-    right:1130px;
+    top:200px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
-#results_table{
-    position:absolute;
-    top:330px;
-}
+
 #tips{
     position:absolute;
-    top
+    top:100px;
+    right:200px;
 
+}
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
+table.highlight > tbody > tr {
+  transition: background-color .25s ease;
+
+
+}
+table.highlight > tbody > tr:hover {
+  background-color: #f2f2f2;
+}
+#results{
+    top:380px;
 }
